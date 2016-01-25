@@ -1,15 +1,14 @@
 // Business Logic
-// var helloWorld = function(){
-//   return false;
-//
-//   For loops and shit go here
-//   If/else like a madman here
-//
-//  return shit like a mo-fo here
-//
-//   ...whatchyu lookin at bitch? Green those specs and git back to work!
-//  Time fo yo Interface Logic, then suckface when it's all green.
-// };
+
+function Contact(firstName,lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.addresses = [];
+}
+
+Contact.prototype.fullName = function() {
+  return this.firstName + " " + this.lastName;
+};
 
 
 
@@ -19,19 +18,27 @@
 
 
 // User Interface Logic
-// $(document).ready(function() {
-//   $("form#IDselector").submit(function(event) {
-//     // variables and shit go here, bitch!
-//
-//     // link your muthafuckin' variables to yo bad-ass bidness logic function, Yo!
-//
-//     // Make shit happen here...BITCH!
-//
-//     // Muthafuckin' variables connect to your output down here hommie.
-//
-//     // Show me some money, hunny, and reveal that hiddin fine shit you got stashed.
-//
-//     // It's all good baby.'
-//     event.preventDefault();
-//   });
-// });
+
+$(document).ready(function() {
+  $("form#new-contact").submit(function(event) {
+    event.preventDefault();
+
+    var inputtedFirstName = $("input#new-first-name").val();
+    var inputtedLastName = $("input#new-last-name").val();
+    var newContact = new Contact(inputtedFirstName, inputtedLastName);
+
+    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
+
+    $("input#new-first-name").val("");
+    $("input#new-last-name").val("");
+  });
+
+  $(".contact").last().click(function() {
+  $("#show-contact").show();
+  $("#show-contact h2").text(newContact.fullName());
+  $(".first-name").text(newContact.firstName);
+  $(".last-name").text(newContact.lastName);
+  });
+
+  event.preventDefault();
+});
